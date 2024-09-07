@@ -1,0 +1,6 @@
+# Development files and directories
+.direnv
+.vscode
+
+# Generated Artifacts
+result

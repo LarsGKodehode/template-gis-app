@@ -26,6 +26,8 @@ jobs:
         working-directory: ${{ matrix.dir }}
     runs-on: ubuntu-24.04
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
       - name: common setup
         uses: ./.github/actions/setup.yaml
         with:
@@ -42,6 +44,8 @@ jobs:
         working-directory: ${{ matrix.dir }}
     runs-on: ubuntu-24.04
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
       - name: common setup
         uses: ./.github/actions/setup.yaml
         with:

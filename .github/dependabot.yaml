@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    # target-branch: develop
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - github actions dependencies
+    commit-message:
+      include: scope
+  - package-ecosystem: npm
+    # target-branch: develop
+    directories:
+      - "/applications/*"
+    schedule:
+      interval: "weekly"
+    labels:
+      - npm dependencies

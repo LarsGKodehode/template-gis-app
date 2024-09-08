@@ -56,6 +56,7 @@ jobs:
       - name: Lowercase github.repository
         run: |
           echo "REPO=${GITHUB_REPOSITORY@L}" >> ${GITHUB_ENV}
+
       - name: Build Docker Image with Nix
         run: |
           nix build .#container
@@ -74,11 +75,11 @@ jobs:
           docker tag $IMAGE_ID ghcr.io/${{ env.REPO }}/${{ matrix.dir }}:latest
       - name: Tag Docker Image (unique hash)
         run: |
-          docker tag $IMAGE_ID ghcr.io/${{ github.repository }}/${{ matrix.dir }}:$STORE_HASH
+          docker tag $IMAGE_ID ghcr.io/${{ github.repository }}/${{ matrix.dir }}:${{ env.STORE_HASH }}
 
       - name: Push Docker Image (latest)
         run: |
           docker push ghcr.io/${{ env.REPO }}/${{ matrix.dir }}:latest
       - name: Push Docker Image (unique hash)
         run: |
-          docker push ghcr.io/${{ github.repository }}/${{ matrix.dir }}:$STORE_HASH
+          docker push ghcr.io/${{ github.repository }}/${{ matrix.dir }}:${{ env.STORE_HASH }}

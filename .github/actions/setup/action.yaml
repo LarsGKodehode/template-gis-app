@@ -1,0 +1,25 @@
+name: "Common Setup"
+description: "Setup steps for node projects"
+inputs:
+  dir:
+    required: true
+    description: "The directory to run the setup in"
+
+runs:
+  using: composite
+  steps:
+    - name: setup nix
+      uses: cachix/install-nix-action@v27
+      with:
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: get lockfile path
+      shell: sh
+      run: echo "LOCKFILE_PATH=${{ inputs.dir }}/package-lock.json" >> $GITHUB_ENV
+    - name: setup cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ inputs.dir }}/node_modules
+        key: app-${{ hashFiles(env.LOCKFILE_PATH) }}
+    - name: install node dependencies
+      shell: sh
+      run: npm install

@@ -77,6 +77,9 @@
 
             buildInputs = [
               pkgs.nodejs_22
+
+              # For CI Runners
+              pkgs.bash
             ];
 
             env = config.production.envMap;

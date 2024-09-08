@@ -35,7 +35,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ matrix.dir }}/node_modules
-          key: app-${{ hashFile( matrix.dir + /package-lock.json) }}
+          key: app-${{ hashFiles('matrix.dir + /package-lock.json)'}}
       - name: install node dependencies
         run: npm install
       - name: format

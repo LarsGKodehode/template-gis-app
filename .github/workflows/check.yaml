@@ -26,20 +26,10 @@ jobs:
         working-directory: ${{ matrix.dir }}
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - name: setup nix
-        uses: cachix/install-nix-action@v27
+      - name: common setup
+        uses: ./.github/actions/setup.yml
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: get lockfile path
-        run: echo "LOCKFILE_PATH=${{ matrix.dir }}/package-lock.json" >> $GITHUB_ENV
-      - name: setup cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ matrix.dir }}/node_modules
-          key: app-${{ hashFiles(env.LOCKFILE_PATH) }}
-      - name: install node dependencies
-        run: npm install
+          dir: ${{ matrix.dir }}
       - name: format
         run: npm run format
 
@@ -52,19 +42,9 @@ jobs:
         working-directory: ${{ matrix.dir }}
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - name: setup nix
-        uses: cachix/install-nix-action@v27
+      - name: common setup
+        uses: ./.github/actions/setup.yml
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: get lockfile path
-        run: echo "LOCKFILE_PATH=${{ matrix.dir }}/package-lock.json" >> $GITHUB_ENV
-      - name: setup cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ matrix.dir }}/node_modules
-          key: app-${{ hashFiles(env.LOCKFILE_PATH) }}
-      - name: install node dependencies
-        run: npm install
+          dir: ${{ matrix.dir }}
       - name: format
         run: npm run lint

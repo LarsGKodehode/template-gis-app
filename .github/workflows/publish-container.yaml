@@ -61,6 +61,7 @@ jobs:
         run: |
           nix build .#container
           docker load < result
+          echo "IMAGE_ID=$(docker images -q | head -n 1)" >> ${GITHUB_ENV}
           echo "STORE_HASH=$(tar -xzOf result manifest.json | jq -r '[.[] | .RepoTags[]] | .[]' | sed 's/.*[:]//')" >> ${GITHUB_ENV}
         #                    ^^^                              ^^                                  ^^^               ^^
         # Getting the unique nix/store hash for the image is quickest done by
@@ -71,15 +72,14 @@ jobs:
 
       - name: Tag Docker Image (latest)
         run: |
-          IMAGE_ID=$(docker images -q | head -n 1)
-          docker tag $IMAGE_ID ghcr.io/${{ env.REPO }}/${{ matrix.dir }}:latest
+          docker tag ${{ env.IMAGE_ID }} ghcr.io/${{ env.REPO }}/${{ matrix.dir }}:latest
       - name: Tag Docker Image (unique hash)
         run: |
-          docker tag $IMAGE_ID ghcr.io/${{ github.repository }}/${{ matrix.dir }}:${{ env.STORE_HASH }}
+          docker tag ${{ env.IMAGE_ID }} ghcr.io/${{ env.REPO }}/${{ matrix.dir }}:${{ env.STORE_HASH }}
 
       - name: Push Docker Image (latest)
         run: |
           docker push ghcr.io/${{ env.REPO }}/${{ matrix.dir }}:latest
       - name: Push Docker Image (unique hash)
         run: |
-          docker push ghcr.io/${{ github.repository }}/${{ matrix.dir }}:${{ env.STORE_HASH }}
+          docker push ghcr.io/${{ env.REPO }}/${{ matrix.dir }}:${{ env.STORE_HASH }}

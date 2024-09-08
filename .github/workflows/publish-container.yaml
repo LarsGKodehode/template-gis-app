@@ -37,6 +37,12 @@ jobs:
         dir: [applications/map]
     runs-on: ubuntu-24.04
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: Setup environment
+        uses: ./.github/actions/setup
+        with:
+          dir: ${{ matrix.dir }}
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:

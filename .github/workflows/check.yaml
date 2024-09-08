@@ -31,7 +31,31 @@ jobs:
         uses: cachix/install-nix-action@v27
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: setup cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ matrix.dir }}/node_modules
+          key: app-${{ hashFile( matrix.dir + /package-lock.json) }}
+      - name: install node dependencies
+        run: npm install
+      - name: format
+        run: npm run format
+
+  lint:
+    strategy:
+      matrix:
+        dir: [applications/map]
+    defaults:
+      run:
+        working-directory: ${{ matrix.dir }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup nix
+        uses: cachix/install-nix-action@v27
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - name: install dependencies
         run: npm install
       - name: format
-        run: npm run format 
+        run: npm run lint

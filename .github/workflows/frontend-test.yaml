@@ -16,6 +16,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - **/*.md # Ignoring markdown files
   pull_request:
   # Allows manually triggering the workflow
   workflow_dispatch:

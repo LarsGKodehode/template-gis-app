@@ -38,6 +38,8 @@ jobs:
         working-directory: ${{ matrix.dir }}
     runs-on: ubuntu-24.04
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
       - name: Setup environment
         uses: ./.github/actions/setup
         with:
@@ -54,6 +56,8 @@ jobs:
         working-directory: ${{ matrix.dir }}
     runs-on: ubuntu-24.04
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
       - name: Setup environment
         uses: ./.github/actions/setup
         with:

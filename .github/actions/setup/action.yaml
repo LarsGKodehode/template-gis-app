@@ -8,8 +8,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: checkout
-      uses: actions/checkout@v4
     - name: setup nix
       uses: cachix/install-nix-action@v27
     - name: get lockfile path

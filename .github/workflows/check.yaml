@@ -29,7 +29,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: common setup
-        uses: ./.github/actions/setup.yaml
+        uses: ./.github/actions/setup
         with:
           dir: ${{ matrix.dir }}
       - name: format
@@ -47,7 +47,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: common setup
-        uses: ./.github/actions/setup.yaml
+        uses: ./.github/actions/setup
         with:
           dir: ${{ matrix.dir }}
       - name: format

@@ -28,7 +28,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: setup nix
-        uses: nicknovitski/nix-develop@v1
+        uses: cachix/install-nix-action@v27
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - name: install dependencies
         run: npm install
       - name: format

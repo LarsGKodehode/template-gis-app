@@ -60,15 +60,20 @@ jobs:
         run: |
           nix build .#container
           docker load < result
+          echo "STORE_HASH=$(tar -xzOf result manifest.json | jq -r '[.[] | .RepoTags[]] | .[]' | sed 's/.*[:]//')" >> ${GITHUB_ENV}
+        #                    ^^^                              ^^                                  ^^^               ^^
+        # Getting the unique nix/store hash for the image is quickest done by
+        # - extracting the manifest from the result(.tar.gz)
+        # - parsing the json
+        # - filtering the full name
+        # - and finaly storing the result in the environment
+
       - name: Tag Docker Image (latest)
         run: |
           IMAGE_ID=$(docker images -q | head -n 1)
           docker tag $IMAGE_ID ghcr.io/${{ env.REPO }}/${{ matrix.dir }}:latest
       - name: Tag Docker Image (unique hash)
-        # Getting the unique nix/store hash for the image is quickest done by
-        # extracting the manifest from the result(.tar.gz), then parsing the json
         run: |
-          STORE_HASH=$(tar -xzOf result manifest.json | jq -r '[.[] | .RepoTags[]] | .[]' | sed 's/.*[:]//')
           docker tag $IMAGE_ID ghcr.io/${{ github.repository }}/${{ matrix.dir }}:$STORE_HASH
 
       - name: Push Docker Image (latest)

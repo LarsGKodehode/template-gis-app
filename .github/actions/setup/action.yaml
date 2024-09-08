@@ -1,4 +1,4 @@
-name: "Common Setup"
+name: "Setup environment"
 description: "Setup steps for node projects"
 inputs:
   dir:
@@ -8,6 +8,8 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: checkout
+      uses: actions/checkout@v4
     - name: setup nix
       uses: cachix/install-nix-action@v27
     - name: get lockfile path
@@ -18,3 +20,7 @@ runs:
       with:
         path: ${{ inputs.dir }}/node_modules
         key: app-${{ hashFiles(env.LOCKFILE_PATH) }}
+    - name: install node dependencies
+      shell: sh
+      run: npm install
+      working-directory: ${{ inputs.dir }}

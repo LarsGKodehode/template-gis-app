@@ -10,8 +10,6 @@ runs:
   steps:
     - name: setup nix
       uses: cachix/install-nix-action@v27
-      with:
-        github_access_token: ${{ secrets.GITHUB_TOKEN }}
     - name: get lockfile path
       shell: sh
       run: echo "LOCKFILE_PATH=${{ inputs.dir }}/package-lock.json" >> $GITHUB_ENV

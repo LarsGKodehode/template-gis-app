@@ -43,5 +43,5 @@ jobs:
         uses: ./.github/actions/setup
         with:
           dir: ${{ matrix.dir }}
-      - name: format
+      - name: test:unit
         run: npm run test:unit

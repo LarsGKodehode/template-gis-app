@@ -20,17 +20,25 @@ to narrow it down to a pure client side app, or one which includes backend syste
 
 {{ This is a baseline project structure, fill out or remove based on project specifics }}
 
-´´´shell
+```
 .
-├── /.github        # Project workflows and GitHub templates
-├── /documentation  # Documentation for the project, its usage, along with design files
-├── /modules        # Modules that can be shared across applications
-├── /applications   # Concrete applications for deployment
-├── /services       # Concrete backend services for deployment
-├── /infrastructure # System infrastructure description for environments
-├── /deployements   # Description of currently deployements across environments
-└── flake.nix       # Development environment description, and packaging descriptions
-´´´
+│   # Project workflows and GitHub templates
+├── /.github
+│   # Documentation for the project, its usage, along with design files
+├── /documentation
+│   # Modules that can be shared across applications
+├── /modules
+│   # Concrete applications for deployment
+├── /applications
+│   # Concrete backend services for deployment
+├── /services
+│   # System infrastructure description for environments
+├── /infrastructure
+│   # Description of currently deployements across environments
+├── /deployements
+│   # Development environment description, and packaging descriptions
+└── flake.nix
+```
 
 ## Technologies
 

@@ -7,8 +7,6 @@ updates:
       interval: "weekly"
     labels:
       - github actions dependencies
-    commit-message:
-      include: scope
   - package-ecosystem: npm
     # target-branch: develop
     directories:

@@ -18,6 +18,3 @@ runs:
       with:
         path: ${{ inputs.dir }}/node_modules
         key: app-${{ hashFiles(env.LOCKFILE_PATH) }}
-    - name: install node dependencies
-      shell: sh
-      run: npm install

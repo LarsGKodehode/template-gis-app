@@ -32,6 +32,9 @@ jobs:
         uses: ./.github/actions/setup
         with:
           dir: ${{ matrix.dir }}
+      - name: install node dependencies
+        shell: sh
+        run: npm install
       - name: format
         run: npm run format
 
@@ -50,5 +53,8 @@ jobs:
         uses: ./.github/actions/setup
         with:
           dir: ${{ matrix.dir }}
+      - name: install node dependencies
+        shell: sh
+        run: npm install
       - name: format
         run: npm run lint

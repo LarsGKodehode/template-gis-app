@@ -29,9 +29,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
-name: test
+name: publish container image
 jobs:
-  unit:
+  publish:
     strategy:
       matrix:
         dir: [applications/map]

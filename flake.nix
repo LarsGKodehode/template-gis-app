@@ -66,7 +66,7 @@
           pkgs = import nixpkgs { inherit system; };
 
           # Currently this needs to be manually updated whenever the package-lock.json changes
-          npmLockfileHash = "sha256-awmXQ3/RoGvLrCirkEo8/Ht/dLtAnQri5pdacJdLk3Y=";
+          npmLockfileHash = "sha256-QPzEk3Bwe0lzGDvBlRqrh54YRqaMK2jcaWHOTeDptKA=";
         in
         rec {
           default = frontendAssets;

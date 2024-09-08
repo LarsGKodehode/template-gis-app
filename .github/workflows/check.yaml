@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: common setup
-        uses: ./.github/actions/setup.yml
+        uses: ./.github/actions/setup.yaml
         with:
           dir: ${{ matrix.dir }}
       - name: format
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: common setup
-        uses: ./.github/actions/setup.yml
+        uses: ./.github/actions/setup.yaml
         with:
           dir: ${{ matrix.dir }}
       - name: format

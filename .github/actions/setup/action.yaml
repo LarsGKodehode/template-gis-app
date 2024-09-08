@@ -11,10 +11,7 @@ runs:
     - name: setup nix
       uses: cachix/install-nix-action@v27
     - name: setup nix cache
-      uses: actions/cache@v4
-      with:
-        path: /nix/store
-        key: nix-store # Nix store paths are hashed and can be shared
+      uses: DeterminateSystems/magic-nix-cache-action@main
     - name: get lockfile path
       shell: sh
       run: echo "LOCKFILE_PATH=${{ inputs.dir }}/package-lock.json" >> $GITHUB_ENV

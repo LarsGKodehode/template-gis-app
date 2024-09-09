@@ -111,6 +111,8 @@
             name = config.imageName;
 
             config.Cmd = [ "${targetPkgs.static-web-server}/bin/static-web-server" "--root" frontendAssets ];
+
+            architecture = targetArchitecture;
           };
         }
       );

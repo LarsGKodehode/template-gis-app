@@ -13,7 +13,13 @@
         appName = "React Geo App";
         imageName = "react-geo-app";
 
-        containerTargets = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+        containerTargets = [
+          { nixSystem = "aarch64-linux"; dockerArch = "arm64"; }
+          { nixSystem = "x86_64-linux"; dockerArch = "amd64"; }
+          { nixSystem = "aarch64-darwin"; dockerArch = "arm64"; }
+          { nixSystem = "x86_64-darwin"; dockerArch = "amd64"; }
+        ];
+
         # Environment specific
         development = {
           envMap = {
@@ -95,24 +101,21 @@
           };
 
           # Container Image
-          container = map (arch:
-            let
-              targetPkgs = import nixpkgs { system = arch; };
+          container = nixpkgs.lib.genAttrs (map (target: target.nixSystem) config.containerTargets (target:
+              let
+                targetPkgs = import nixpkgs { system = target.nixSystem; };
+                webBinary = "${targetPkgs.static-web-server}/bin/static-web-server";
+              in pkgs.dockerTools.buildImage {
+                # Any references to package from a nix/store inside here
+                # will be included in the container image
+                name = "${config.imageName}-${target.arch}";
 
-              # Darwin does not support fakeroot
-              # requiering us to use put the result
-              # into "nix/store/xxx-imageName" and
-              # then loading it into the registry
-            in pkgs.dockerTools.buildImage {
-              # Any references to package from a nix/store inside here
-              # will be included in the container image
-              name = "${config.imageName}-${arch}";
+                config.Cmd = [ webBinary "--root" frontendAssets ];
 
-              config.Cmd = [ "${targetPkgs.static-web-server}/bin/static-web-server" "--root" frontendAssets ];
-
-              architecture = arch;
-            }
-          ) config.containerTargets;
+                architecture = target.arch;
+              }
+            )
+          );
         }
       );
     };

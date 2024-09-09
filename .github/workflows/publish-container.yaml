@@ -35,6 +35,8 @@ jobs:
     strategy:
       matrix:
         dir: [applications/map]
+        targetArchitecture:
+          [aarch64-linux, aarch64-darwin, x86_64-linux, x86_64-darwin]
     runs-on: ubuntu-24.04
     steps:
       - name: checkout
@@ -59,7 +61,7 @@ jobs:
 
       - name: Build Docker Image with Nix
         run: |
-          nix build .#container
+          nix build .#container.${{ matrix.targetArchitecture }}
           docker load < result
           echo "IMAGE_ID=$(docker images -q | head -n 1)" >> ${GITHUB_ENV}
           echo "STORE_HASH=$(tar -xzOf result manifest.json | jq -r '[.[] | .RepoTags[]] | .[]' | sed 's/.*[:]//')" >> ${GITHUB_ENV}

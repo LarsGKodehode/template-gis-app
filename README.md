@@ -1,4 +1,36 @@
-# {{ Application Title }}
+<p align="center">
+  <a href="https://github.com/larsgkodehode">
+    <picture>
+      <img src="documentation/assets/logo.svg" height="128">
+    </picture>
+    <h1 align="center">{{ application_title }}</h1>
+  </a>
+
+  <p align="center">
+    <a href="https://nixos.org/">
+      <img alt="Static Badge" src="https://img.shields.io/badge/Nix-2.23.3-blue?style=for-the-badge&logo=nixos&logoSize=auto">
+    </a>
+    <a href="https://opencontainers.org/">
+      <img alt="Static Badge" src="https://img.shields.io/badge/OCI-1.1.0-purple?style=for-the-badge&logo=opencontainersinitiative&logoSize=auto">
+    </a>
+  </p>
+
+  <p align="center">
+    <a href="https://react.dev/">
+      <img alt="Static Badge" src="https://img.shields.io/badge/React-18-lightblue?style=for-the-badge&logo=react&logoSize=auto">
+    </a>
+    <a href="https://vis.gl/">
+      <img alt="Static Badge" src="https://img.shields.io/badge/Vis.gl-gray?style=for-the-badge&logoSize=auto">
+    </a>
+    <a href="https://mapbox.com/">
+      <img alt="Static Badge" src="https://img.shields.io/badge/Mapbox-gray?style=for-the-badge&logo=mapbox&logoSize=auto">
+    </a>
+  </p>
+
+  <p align="center">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/larsgkodehode/template-gis-app?style=for-the-badge">
+  </p>
+</p>
 
 A template for developing web based Geospatial Information Applications, using React and Vis.gl.
 The set of files here are for a very generic Web GIS application, further refinement needs to be done
@@ -18,7 +50,7 @@ to narrow it down to a pure client side app, or one which includes backend syste
 
 ## Project Structure
 
-{{ This is a baseline project structure, fill out or remove based on project specifics }}
+This is a baseline project structure, fill out or remove based on project specifics
 
 ```
 .
@@ -42,7 +74,7 @@ to narrow it down to a pure client side app, or one which includes backend syste
 
 ## Technologies
 
-{{ These covers the baseline of a typical Web Application with GIS components. Modify to fit project scope }}
+These covers the baseline of a typical Web Application with GIS components. Modify to fit project scope
 
 ### External Tools
 
@@ -54,6 +86,7 @@ to narrow it down to a pure client side app, or one which includes backend syste
 - [Slack]() Asynchronous Communication Platform
 - [Figma]() Graphical User Interface design tool
 - [Mapbox Studio]() Map Design studio
+- [shields.io & simpleicons.org]() For live and static badges
 
 ### Development
 

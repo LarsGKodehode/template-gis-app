@@ -12,6 +12,8 @@
         # Generic
         appName = "React Geo App";
         imageName = "react-geo-app";
+
+        containerTargets = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
         # Environment specific
         development = {
           envMap = {
@@ -93,27 +95,24 @@
           };
 
           # Container Image
-          container =
-          let
-            # The web server is platform sensitive so we
-            # need to take this into account when creating the
-            # container images
-            targetArchitecture = "aarch64-linux";
-            targetPkgs = import nixpkgs { system = targetArchitecture; };
+          container = map (arch:
+            let
+              targetPkgs = import nixpkgs { system = arch; };
 
-            # Darwin does not support fakeroot
-            # requiering us to use put the result
-            # into "nix/store/xxx-imageName" and
-            # then loading it into the registry
-          in pkgs.dockerTools.buildImage {
-            # Any references to package from a nix/store inside here
-            # will be included in the container image
-            name = config.imageName;
+              # Darwin does not support fakeroot
+              # requiering us to use put the result
+              # into "nix/store/xxx-imageName" and
+              # then loading it into the registry
+            in pkgs.dockerTools.buildImage {
+              # Any references to package from a nix/store inside here
+              # will be included in the container image
+              name = "${config.imageName}-${arch}";
 
-            config.Cmd = [ "${targetPkgs.static-web-server}/bin/static-web-server" "--root" frontendAssets ];
+              config.Cmd = [ "${targetPkgs.static-web-server}/bin/static-web-server" "--root" frontendAssets ];
 
-            architecture = targetArchitecture;
-          };
+              architecture = arch;
+            }
+          ) config.containerTargets;
         }
       );
     };
